@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-student-lesson
+      author: Nijat
+      changes:
+        - createTable:
+            tableName: student_lesson
+            columns:
+              - column:
+                  name: student_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lesson_id
+                  type: INT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: student_lesson
+            columnNames: student_id, lesson_id
+            constraintName: pk_student_lesson
+        - addForeignKeyConstraint:
+            baseTableName: student_lesson
+            baseColumnNames: student_id
+            referencedTableName: student
+            referencedColumnNames: id
+            constraintName: fk_studentlesson_student
+        - addForeignKeyConstraint:
+            baseTableName: student_lesson
+            baseColumnNames: lesson_id
+            referencedTableName: lesson
+            referencedColumnNames: id
+            constraintName: fk_studentlesson_lesson

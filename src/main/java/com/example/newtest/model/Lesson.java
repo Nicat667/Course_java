@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.*;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,4 +22,18 @@ public class Lesson {
 
     @Column(nullable = false)
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id",  nullable = false)
+    private Teacher teacher;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_lesson",
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<Student> students = new LinkedHashSet<>();
+
+
 }
