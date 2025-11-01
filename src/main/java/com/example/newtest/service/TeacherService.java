@@ -21,36 +21,33 @@ public class TeacherService {
         return teacherRepository.findAll();
     }
 
-    public Teacher GetTeacherById(Integer id) {
+    public Teacher GetTeacherById(int id) {
         return teacherRepository.findById(id).orElseThrow();
     }
 
-    public void DeleteTeacherById(Integer id) {
+    public void DeleteTeacherById(int id) {
         teacherRepository.deleteById(id);
     }
 
-    public Teacher CreateNewTeacher(String name, String email) {
-        Teacher teacher = new Teacher();
-        teacher.setName(name);
-        teacher.setEmail(email);
+    public Teacher CreateNewTeacher(Teacher teacher) {
         return teacherRepository.save(teacher);
     }
 
-    public Teacher AddLesson(Integer teacherId, Integer lessonId) {
+    public Teacher AddLesson(int teacherId, int lessonId) {
         Teacher teacher = teacherRepository.findById(teacherId).orElseThrow();
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
         teacher.addLesson(lesson);
         return teacherRepository.save(teacher);
     }
 
-    public void DeleteLessonFromTeacher(Integer teacherId, Integer lessonId) {
+    public Teacher DeleteLessonFromTeacher(int teacherId, int lessonId) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
         Teacher teacher = teacherRepository.findById(teacherId).orElseThrow();
         teacher.removeLesson(lesson);
-        teacherRepository.save(teacher);
+        return teacherRepository.save(teacher);
     }
 
-    public Teacher UpdateTeacherById(Integer teacherId, Teacher teacher) {
+    public Teacher UpdateTeacherById(int teacherId, Teacher teacher) {
         Teacher existingTeacher = teacherRepository.findById(teacherId).orElseThrow();
         existingTeacher.setName(teacher.getName());
         existingTeacher.setEmail(teacher.getEmail());

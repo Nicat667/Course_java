@@ -27,13 +27,13 @@ public class Student {
     @ManyToMany(mappedBy = "students")
     private Set<Lesson> lessons = new LinkedHashSet<>();
 
-    public void addLesson(Lesson lesson) {
-        lessons.add(lesson);
-        lesson.getStudents().add(this);
-    }
-
-    public void removeLesson(Lesson lesson) {
-        lessons.remove(lesson);
-        lesson.getStudents().remove(this);
-    }
+//    public void addLesson(Lesson lesson) {
+//        lessons.add(lesson);
+//        lesson.getStudents().add(this);
+//    }
+//
+//    public void removeLesson(Lesson lesson) {
+//        lessons.remove(lesson);
+//        lesson.getStudents().remove(this);
+//    }
 }
