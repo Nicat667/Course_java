@@ -24,10 +24,11 @@ public class LessonService {
     }
 
     public Lesson GetLessonById(int id) {
-        return lessonRepository.findById(id).get();
+        return lessonRepository.findById(id).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
     }
 
     public void DeleteLessonById(int id) {
+        Lesson lesson = lessonRepository.findById(id).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
         lessonRepository.deleteById(id);
     }
 
@@ -36,31 +37,31 @@ public class LessonService {
     }
 
     public Lesson UpdateLesson(int lessonId, Lesson lesson) {
-        Lesson existingLesson = lessonRepository.findById(lessonId).orElseThrow();
+        Lesson existingLesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
         existingLesson.setName(lesson.getName());
         return lessonRepository.save(existingLesson);
     }
 
     public Teacher GetTeacherOfLesson(int lessonId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
         return lesson.getTeacher();
     }
 
     public Set<Student> GetStudentsOfLesson(int lessonId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
         return lesson.getStudents();
     }
 
     public Lesson AddStudentToLesson(int lessonId, int studentId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
-        Student student = studentRepository.findById(studentId).orElseThrow();
-        lesson.getStudents().add(student);
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student Not Found"));
+        lesson.AddStudent(student);
         return lessonRepository.save(lesson);
     }
 
     public Lesson DeleteStudentFromLesson(int lessonId, int studentId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
-        Student student = studentRepository.findById(studentId).orElseThrow();
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student Not Found"));
         lesson.RemoveStudent(student);
         return lessonRepository.save(lesson);
     }

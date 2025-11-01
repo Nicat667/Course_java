@@ -23,10 +23,11 @@ public class TeacherService {
     }
 
     public Teacher GetTeacherById(int id) {
-        return teacherRepository.findById(id).orElseThrow();
+        return teacherRepository.findById(id).orElseThrow(() -> new RuntimeException("Teacher Not Found"));
     }
 
     public void DeleteTeacherById(int id) {
+        Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new RuntimeException("Teacher Not Found"));
         teacherRepository.deleteById(id);
     }
 
@@ -35,28 +36,28 @@ public class TeacherService {
     }
 
     public Teacher AddLessonToTeacher(int teacherId, int lessonId) {
-        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow();
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher Not Found"));
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
         teacher.addLesson(lesson);
         return teacherRepository.save(teacher);
     }
 
     public Teacher DeleteLessonFromTeacher(int teacherId, int lessonId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
-        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow();
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher Not Found"));
         teacher.removeLesson(lesson);
         return teacherRepository.save(teacher);
     }
 
     public Teacher UpdateTeacherById(int teacherId, Teacher teacher) {
-        Teacher existingTeacher = teacherRepository.findById(teacherId).orElseThrow();
+        Teacher existingTeacher = teacherRepository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher Not Found"));
         existingTeacher.setName(teacher.getName());
         existingTeacher.setEmail(teacher.getEmail());
         return teacherRepository.save(existingTeacher);
     }
 
     public Set<Lesson> GetLessonsByTeacherId(int teacherId) {
-        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow();
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher Not Found"));
         return teacher.getLessons();
     }
 }
