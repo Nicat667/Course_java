@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -33,7 +34,7 @@ public class TeacherService {
         return teacherRepository.save(teacher);
     }
 
-    public Teacher AddLesson(int teacherId, int lessonId) {
+    public Teacher AddLessonToTeacher(int teacherId, int lessonId) {
         Teacher teacher = teacherRepository.findById(teacherId).orElseThrow();
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow();
         teacher.addLesson(lesson);
@@ -52,5 +53,10 @@ public class TeacherService {
         existingTeacher.setName(teacher.getName());
         existingTeacher.setEmail(teacher.getEmail());
         return teacherRepository.save(existingTeacher);
+    }
+
+    public Set<Lesson> GetLessonsByTeacherId(int teacherId) {
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow();
+        return teacher.getLessons();
     }
 }

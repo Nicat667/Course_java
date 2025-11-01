@@ -31,7 +31,7 @@ public class LessonService {
         lessonRepository.deleteById(id);
     }
 
-    public Lesson CreateLesson(Lesson lesson) {
+    public Lesson CreateNewLesson(Lesson lesson) {
         return lessonRepository.save(lesson);
     }
 
