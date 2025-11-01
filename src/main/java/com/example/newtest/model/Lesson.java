@@ -35,5 +35,15 @@ public class Lesson {
     )
     private Set<Student> students = new LinkedHashSet<>();
 
+    public void AddStudent(Student student) {
+        students.add(student);
+        student.getLessons().add(this);
+    }
+
+    public void RemoveStudent(Student student) {
+        students.remove(student);
+        student.getLessons().remove(this);
+    }
+
 
 }
