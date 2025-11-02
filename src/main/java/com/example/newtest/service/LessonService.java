@@ -21,47 +21,48 @@ public class LessonService {
     private final StudentRepository studentRepository;
     private final LessonRepository lessonRepository;
 
-    public List<Lesson> GetAllLessons() {
+    public List<Lesson> getAllLessons() {
         return lessonRepository.findAll();
     }
 
-    public Lesson GetLessonById(int id) {
+    public Lesson getLessonById(int id) {
         return lessonRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public void DeleteLessonById(int id) {
+    public void deleteLessonById(int id) {
         Lesson lesson = lessonRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         lessonRepository.deleteById(id);
     }
 
-    public Lesson CreateNewLesson(Lesson lesson) {
+    public Lesson createNewLesson(Lesson lesson) {
         return lessonRepository.save(lesson);
     }
 
-    public Lesson UpdateLesson(int lessonId, Lesson lesson) {
+    public Lesson updateLesson(int lessonId, Lesson lesson) {
         Lesson existingLesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         existingLesson.setName(lesson.getName());
+        existingLesson.setDescription(lesson.getDescription());
         return lessonRepository.save(existingLesson);
     }
 
-    public Teacher GetTeacherOfLesson(int lessonId) {
+    public Teacher getTeacherOfLesson(int lessonId) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return lesson.getTeacher();
     }
 
-    public Set<Student> GetStudentsOfLesson(int lessonId) {
+    public Set<Student> getStudentsOfLesson(int lessonId) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return lesson.getStudents();
     }
 
-    public Lesson AddStudentToLesson(int lessonId, int studentId) {
+    public Lesson addStudentToLesson(int lessonId, int studentId) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         lesson.AddStudent(student);
         return lessonRepository.save(lesson);
     }
 
-    public Lesson DeleteStudentFromLesson(int lessonId, int studentId) {
+    public Lesson deleteStudentFromLesson(int lessonId, int studentId) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         lesson.RemoveStudent(student);

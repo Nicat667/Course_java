@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: 20251102-1
-      author: nicat
+      id: alter-lesson
+      author: Nijat
       changes:
         - dropNotNullConstraint:
             tableName: lesson

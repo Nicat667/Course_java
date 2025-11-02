@@ -1,9 +1,8 @@
 package com.example.newtest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.*;
 
@@ -25,6 +24,9 @@ public class Lesson {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id",  nullable = true)
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Teacher teacher;
 
     @ManyToMany

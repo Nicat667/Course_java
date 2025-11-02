@@ -20,45 +20,45 @@ public class TeacherService {
     private final TeacherRepository teacherRepository;
     private final LessonRepository lessonRepository;
 
-    public List<Teacher> GetAllTeachers() {
+    public List<Teacher> getAllTeachers() {
         return teacherRepository.findAll();
     }
 
-    public Teacher GetTeacherById(int id) {
+    public Teacher getTeacherById(int id) {
         return teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public void DeleteTeacherById(int id) {
+    public void deleteTeacherById(int id) {
         Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         teacherRepository.deleteById(id);
     }
 
-    public Teacher CreateNewTeacher(Teacher teacher) {
+    public Teacher createNewTeacher(Teacher teacher) {
         return teacherRepository.save(teacher);
     }
 
-    public Teacher AddLessonToTeacher(int teacherId, int lessonId) {
+    public Teacher addLessonToTeacher(int teacherId, int lessonId) {
         Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         teacher.addLesson(lesson);
         return teacherRepository.save(teacher);
     }
 
-    public Teacher DeleteLessonFromTeacher(int teacherId, int lessonId) {
+    public Teacher deleteLessonFromTeacher(int teacherId, int lessonId) {
         Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         teacher.removeLesson(lesson);
         return teacherRepository.save(teacher);
     }
 
-    public Teacher UpdateTeacherById(int teacherId, Teacher teacher) {
+    public Teacher updateTeacherById(int teacherId, Teacher teacher) {
         Teacher existingTeacher = teacherRepository.findById(teacherId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         existingTeacher.setName(teacher.getName());
         existingTeacher.setEmail(teacher.getEmail());
         return teacherRepository.save(existingTeacher);
     }
 
-    public Set<Lesson> GetLessonsByTeacherId(int teacherId) {
+    public Set<Lesson> getLessonsByTeacherId(int teacherId) {
         Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return teacher.getLessons();
     }
