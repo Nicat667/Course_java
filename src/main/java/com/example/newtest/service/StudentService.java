@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +29,11 @@ public class StudentService {
 
     public void deleteStudent(int studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        Set<Lesson> lessons = student.getLessons();
+        lessons.iterator().forEachRemaining((lesson) -> {lesson.RemoveStudent(student);});
+
+        student.getLessons().clear();
         studentRepository.deleteById(studentId);
     }
 
@@ -35,8 +41,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student updateStudent(int StudentId, Student student) {
-        Student existingStudent = studentRepository.findById(StudentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public Student updateStudent(int studentId, Student student) {
+        Student existingStudent = studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         existingStudent.setName(student.getName());
         existingStudent.setEmail(student.getEmail());
         return studentRepository.save(existingStudent);

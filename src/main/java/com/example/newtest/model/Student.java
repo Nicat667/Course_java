@@ -2,9 +2,7 @@ package com.example.newtest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -27,6 +25,8 @@ public class Student {
 
     @ManyToMany(mappedBy = "students")
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Lesson> lessons = new LinkedHashSet<>();
 
 //    public void addLesson(Lesson lesson) {

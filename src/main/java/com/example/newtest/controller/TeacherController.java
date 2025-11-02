@@ -35,7 +35,7 @@ public class TeacherController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteTeacher(@PathVariable int id) {
+    public ResponseEntity<Void> deleteTeacher(@PathVariable int id) {
         teacherService.deleteTeacherById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -51,12 +51,12 @@ public class TeacherController {
     }
 
     @PutMapping("/addLesson/{teacherId}/{lessonId}")
-    public ResponseEntity<Teacher> addLesson(@PathVariable int lessonId, @PathVariable int teacherId) {
+    public ResponseEntity<Teacher> addLesson(@PathVariable int teacherId, @PathVariable int lessonId) {
         return ResponseEntity.ok(teacherService.addLessonToTeacher(teacherId, lessonId));
     }
 
     @PutMapping("/removeLesson/{teacherId}/{lessonId}")
-    public ResponseEntity<Teacher> removeLesson(@PathVariable int lessonId, @PathVariable int teacherId) {
+    public ResponseEntity<Teacher> removeLesson(@PathVariable int teacherId, @PathVariable int lessonId) {
         return ResponseEntity.ok(teacherService.deleteLessonFromTeacher(teacherId, lessonId));
     }
 }
