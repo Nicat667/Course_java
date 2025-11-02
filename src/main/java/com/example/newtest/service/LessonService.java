@@ -7,7 +7,9 @@ import com.example.newtest.repository.LessonRepository;
 import com.example.newtest.repository.StudentRepository;
 import com.example.newtest.repository.TeacherRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Set;
@@ -24,11 +26,11 @@ public class LessonService {
     }
 
     public Lesson GetLessonById(int id) {
-        return lessonRepository.findById(id).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
+        return lessonRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     public void DeleteLessonById(int id) {
-        Lesson lesson = lessonRepository.findById(id).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
+        Lesson lesson = lessonRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         lessonRepository.deleteById(id);
     }
 
@@ -37,31 +39,31 @@ public class LessonService {
     }
 
     public Lesson UpdateLesson(int lessonId, Lesson lesson) {
-        Lesson existingLesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
+        Lesson existingLesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         existingLesson.setName(lesson.getName());
         return lessonRepository.save(existingLesson);
     }
 
     public Teacher GetTeacherOfLesson(int lessonId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return lesson.getTeacher();
     }
 
     public Set<Student> GetStudentsOfLesson(int lessonId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return lesson.getStudents();
     }
 
     public Lesson AddStudentToLesson(int lessonId, int studentId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
-        Student student = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student Not Found"));
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         lesson.AddStudent(student);
         return lessonRepository.save(lesson);
     }
 
     public Lesson DeleteStudentFromLesson(int lessonId, int studentId) {
-        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new RuntimeException("Lesson Not Found"));
-        Student student = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student Not Found"));
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         lesson.RemoveStudent(student);
         return lessonRepository.save(lesson);
     }

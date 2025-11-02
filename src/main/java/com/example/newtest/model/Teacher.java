@@ -24,7 +24,7 @@ public class Teacher {
     @Column(nullable = false,unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "teacher",  cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "teacher",  cascade = CascadeType.ALL)
     private Set<Lesson> lessons = new LinkedHashSet<>();
 
     public void addLesson(Lesson lesson) {
