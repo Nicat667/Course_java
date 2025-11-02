@@ -30,7 +30,7 @@ public class LessonController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteLessonById(@PathVariable int id) {
+    public ResponseEntity<Void> deleteLessonById(@PathVariable int id) {
         lessonService.deleteLessonById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

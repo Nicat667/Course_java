@@ -35,6 +35,7 @@ public class Lesson {
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    @JsonIgnore
     private Set<Student> students = new LinkedHashSet<>();
 
     public void AddStudent(Student student) {
