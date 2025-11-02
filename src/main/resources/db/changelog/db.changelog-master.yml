@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/changeSet/create-student.yml
   - include:
       file: db/changelog/changeSet/create-student-lesson.yml
+  - include:
+      file: db/changelog/changeSet/alter-lesson.yml

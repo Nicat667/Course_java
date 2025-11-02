@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20251102-1
+      author: nicat
+      changes:
+        - dropNotNullConstraint:
+            tableName: lesson
+            columnName: teacher_id
+            columnDataType: int
