@@ -24,7 +24,7 @@ public class Lesson {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id",  nullable = false)
+    @JoinColumn(name = "teacher_id",  nullable = true)
     private Teacher teacher;
 
     @ManyToMany
