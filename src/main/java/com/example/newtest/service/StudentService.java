@@ -18,31 +18,31 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public Student GetStudent(int studentId) {
+    public Student getStudent(int studentId) {
         return studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public List<Student> GetAllStudents() {
+    public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
-    public void DeleteStudent(int studentId) {
+    public void deleteStudent(int studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         studentRepository.deleteById(studentId);
     }
 
-    public Student CreateNewStudent(Student student) {
+    public Student createNewStudent(Student student) {
         return studentRepository.save(student);
     }
 
-    public Student UpdateStudent(int StudentId, Student student) {
+    public Student updateStudent(int StudentId, Student student) {
         Student existingStudent = studentRepository.findById(StudentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         existingStudent.setName(student.getName());
         existingStudent.setEmail(student.getEmail());
         return studentRepository.save(existingStudent);
     }
 
-    public Set<Lesson> GetAllLessonsOfStudent(int studentId) {
+    public Set<Lesson> getAllLessonsOfStudent(int studentId) {
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return student.getLessons();
     }

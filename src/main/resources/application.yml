@@ -16,3 +16,8 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yml
 
 
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param

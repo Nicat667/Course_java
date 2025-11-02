@@ -1,5 +1,6 @@
 package com.example.newtest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class Student {
     private String email;
 
     @ManyToMany(mappedBy = "students")
+    @JsonIgnore
     private Set<Lesson> lessons = new LinkedHashSet<>();
 
 //    public void addLesson(Lesson lesson) {

@@ -1,9 +1,7 @@
 package com.example.newtest.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -25,6 +23,8 @@ public class Teacher {
     private String email;
 
     @OneToMany(mappedBy = "teacher",  cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Lesson> lessons = new LinkedHashSet<>();
 
     public void addLesson(Lesson lesson) {

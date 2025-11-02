@@ -21,42 +21,42 @@ public class TeacherController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Teacher>> getAllTeachers() {
-        return ResponseEntity.ok(teacherService.GetAllTeachers());
+        return ResponseEntity.ok(teacherService.getAllTeachers());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Teacher> getTeacherById(@PathVariable int id) {
-        return ResponseEntity.ok(teacherService.GetTeacherById(id));
+        return ResponseEntity.ok(teacherService.getTeacherById(id));
     }
 
     @PostMapping("/add")
     public ResponseEntity<Teacher> addTeacher(@RequestBody Teacher teacher) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.CreateNewTeacher(teacher));
+        return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.createNewTeacher(teacher));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTeacher(@PathVariable int id) {
-        teacherService.DeleteTeacherById(id);
-        return ResponseEntity.ok("Teacher is deleted");
+        teacherService.deleteTeacherById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher, @PathVariable int id) {
-        return ResponseEntity.ok(teacherService.UpdateTeacherById(id, teacher));
+        return ResponseEntity.ok(teacherService.updateTeacherById(id, teacher));
     }
 
     @GetMapping("/getLessons/{id}")
     public ResponseEntity<Set<Lesson>> getLessonsById(@PathVariable int id) {
-        return ResponseEntity.ok(teacherService.GetLessonsByTeacherId(id));
+        return ResponseEntity.ok(teacherService.getLessonsByTeacherId(id));
     }
 
     @PutMapping("/addLesson/{teacherId}/{lessonId}")
     public ResponseEntity<Teacher> addLesson(@PathVariable int lessonId, @PathVariable int teacherId) {
-        return ResponseEntity.ok(teacherService.AddLessonToTeacher(teacherId, lessonId));
+        return ResponseEntity.ok(teacherService.addLessonToTeacher(teacherId, lessonId));
     }
 
     @PutMapping("/removeLesson/{teacherId}/{lessonId}")
     public ResponseEntity<Teacher> removeLesson(@PathVariable int lessonId, @PathVariable int teacherId) {
-        return ResponseEntity.ok(teacherService.DeleteLessonFromTeacher(teacherId, lessonId));
+        return ResponseEntity.ok(teacherService.deleteLessonFromTeacher(teacherId, lessonId));
     }
 }
