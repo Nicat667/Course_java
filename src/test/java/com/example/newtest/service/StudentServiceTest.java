@@ -41,6 +41,7 @@ public class StudentServiceTest {
         when(studentRepository.findById(1)).thenReturn(Optional.of(student));
         Student result = studentService.getStudent(1);
         assertEquals("Zeyneb", result.getName());
+        assertEquals("zeyneb@gmail.com", result.getEmail());
     }
 
     @Test
