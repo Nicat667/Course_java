@@ -14,9 +14,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.util.AssertionErrors.assertTrue;
+
 
 public class StudentServiceTest {
 
@@ -32,14 +33,14 @@ public class StudentServiceTest {
     public void setUp()
     {
         MockitoAnnotations.openMocks(this);
-        student = new Student(1, "Alice", "alice@mail.com", new HashSet<>());
+        student = new Student(1, "Zeyneb", "zeyneb@mail.com", new HashSet<>());
     }
 
     @Test
     void getStudent_ReturnsStudent() {
         when(studentRepository.findById(1)).thenReturn(Optional.of(student));
         Student result = studentService.getStudent(1);
-        assertEquals("Alice", result.getName());
+        assertEquals("Zeyneb", result.getName());
     }
 
     @Test
@@ -57,12 +58,12 @@ public class StudentServiceTest {
         verify(studentRepository).deleteById(1);
     }
 
-//    @Test
-//    void getAllLessonsOfStudent_ReturnsLessons() {
-//        Lesson lesson = new Lesson();
-//        student.getLessons().add(lesson);
-//        when(studentRepository.findById(1)).thenReturn(Optional.of(student));
-//        Set<Lesson> lessons = studentService.getAllLessonsOfStudent(1);
-//        assertTrue(lessons.contains(lesson));
-//    }
+    @Test
+    void getAllLessonsOfStudent_ReturnsLessons() {
+        Lesson lesson = new Lesson();
+        student.getLessons().add(lesson);
+        when(studentRepository.findById(1)).thenReturn(Optional.of(student));
+        Set<Lesson> lessons = studentService.getAllLessonsOfStudent(1);
+        assertTrue(lessons.contains(lesson));
+    }
 }
